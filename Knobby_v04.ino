@@ -1,16 +1,16 @@
 #include <RotaryEncoder.h>
 
 //Rotary Encoder Init
-RotaryEncoder EncLeft(5, 6);
-RotaryEncoder EncRight(7, 8);
+RotaryEncoder EncLeft(0, 1);
+RotaryEncoder EncRight(2, 3);
 
 //Define Number of LEDs and give them pins
 const int LEDNum = 8;
-const int LED[8] = {9, 10, 11, 12, 14, 15, 16, 17};
+const int LED[8] = {12, 11, 10, 9, 8, 7, 6, 5};
 
 //Define pins for push buttons
-const int PushLeft = 0;
-const int PushRight = 1;
+const int PushLeft = 22;
+const int PushRight = 23;
 
 //Define mode variables
 int Mode = 0;
@@ -31,10 +31,10 @@ boolean PushRightState = HIGH;    //Right State
 boolean PushReleased = 0;         //Has button been released state
 
 void setup() {
-  Serial.begin(57600);
+//  Serial.begin(57600);
 
   //Cheeky LED pins init
-  for (int i = ModeMin; i > LEDNum; i++) {
+  for (int i = ModeMin; i < LEDNum; i++) {
     pinMode(LED[i], OUTPUT);
     digitalWrite(LED[i], HIGH);
     delay(250);
@@ -118,7 +118,7 @@ void loop() {
   long NewRight = EncRight.getPosition();
   if (NewLeft != OldLeft || NewRight != OldRight) {
     switch (Mode) {
-      case 1:
+      case 0:
         //Hdg
         if (NewLeft < OldLeft) {
           Joystick.button(1, 1);
@@ -146,7 +146,7 @@ void loop() {
           delay(PostDelay);
         }
         break;
-      case 2:
+      case 1:
         //Crs 1
         if (NewLeft < OldLeft) {
           Joystick.button(5, 1);
@@ -174,7 +174,7 @@ void loop() {
           delay(PostDelay);
         }
         break;
-      case 3:
+      case 2:
         //Alt +-1000
         if (NewLeft < OldLeft) {
           Joystick.button(9, 1);
@@ -202,7 +202,7 @@ void loop() {
           delay(PostDelay);
         }
         break;
-      case 4:
+      case 3:
         //Spd
         if (NewLeft < OldLeft) {
           Joystick.button(13, 1);
@@ -230,7 +230,7 @@ void loop() {
           delay(PostDelay);
         }
         break;
-      case 5:
+      case 4:
         //Com1
         if (NewLeft < OldLeft) {
           Joystick.button(17, 1);
@@ -258,7 +258,7 @@ void loop() {
           delay(PostDelay);
         }
         break;
-      case 6:
+      case 5:
         //Com2
         if (NewLeft < OldLeft) {
           Joystick.button(21, 1);
@@ -286,7 +286,7 @@ void loop() {
           delay(PostDelay);
         }
         break;
-      case 7:
+      case 6:
         //Nav1
         if (NewLeft < OldLeft) {
           Joystick.button(25, 1);
@@ -314,7 +314,7 @@ void loop() {
           delay(PostDelay);
         }
         break;
-      case 8:
+      case 7:
         //Nav2
         if (NewLeft < OldLeft) {
           Joystick.button(29, 1);
